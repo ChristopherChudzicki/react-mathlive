@@ -1,17 +1,16 @@
 import isEqual from 'lodash.isequal';
-import { MathfieldConfig } from "mathlive";
+import { MathfieldOptions } from "mathlive";
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { renderToString } from "react-dom/server";
 import { MathViewProps, MathViewRef } from "./types";
 
-export const OPTIONS: Array<keyof MathfieldConfig> = [
+export const OPTIONS: Array<keyof MathfieldOptions> = [
   "createHTML",
   "customVirtualKeyboardLayers",
   "customVirtualKeyboards",
   "defaultMode",
   "fontsDirectory",
   "horizontalSpacingScale",
-  "ignoreSpacebarInMathMode",
   "inlineShortcutTimeout",
   "inlineShortcuts",
   "keybindings",
@@ -20,7 +19,6 @@ export const OPTIONS: Array<keyof MathfieldConfig> = [
   "letterShapeStyle",
   "locale",
   "macros",
-  "namespace",
   "onBlur",
   "onCommit",
   "onContentDidChange",
@@ -36,8 +34,6 @@ export const OPTIONS: Array<keyof MathfieldConfig> = [
   "onTabOutOf",
   "onUndoStateDidChange",
   "onUndoStateWillChange",
-  "onVirtualKeyboardToggle",
-  "overrideDefaultInlineShortcuts",
   "plonkSound",
   "readAloudHook",
   "readOnly",
@@ -51,7 +47,6 @@ export const OPTIONS: Array<keyof MathfieldConfig> = [
   "speechEngineRate",
   "speechEngineVoice",
   "strings",
-  "substituteTextArea",
   "textToSpeechMarkup",
   "textToSpeechRules",
   "textToSpeechRulesOptions",
@@ -97,7 +92,7 @@ const MAPPING = {
 };
 
 export function filterConfig(props: MathViewProps) {
-  const config: Partial<MathfieldConfig> = {};
+  const config: Partial<MathfieldOptions> = {};
   const passProps: MathViewProps = {};
   for (const _key in props) {
     const key = MAPPING[_key] || _key;
@@ -127,7 +122,7 @@ export function filterConfig(props: MathViewProps) {
  * @param ref 
  * @param config 
  */
-export function useUpdateOptions(ref: React.RefObject<MathViewRef>, config: Partial<MathfieldConfig>) {
+export function useUpdateOptions(ref: React.RefObject<MathViewRef>, config: Partial<MathfieldOptions>) {
   const configRef = useRef(config);
   useLayoutEffect(() => {
     if (!isEqual(configRef.current, config)) {

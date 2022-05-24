@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import MathView, { MathViewProps, MathViewRef } from 'react-math-view';
+import MathView, { MathViewProps, MathViewRef } from 'react-mathlive';
 
 const MathWithKeyboard = (props: MathViewProps) => {
   const ref = useRef<MathViewRef>(null);
@@ -8,6 +8,7 @@ const MathWithKeyboard = (props: MathViewProps) => {
     onFocus={() => {
       ref.current?.executeCommand('showVirtualKeyboard');
     }}
+    
     onBlur={() => {
       console.log('caret', ref.current?.caretPoint);
       console.log('value', ref.current?.getValue('spoken'), ref.current?.getValue('latex'));
@@ -100,7 +101,6 @@ const App = () => {
         onLoad={(e) => console.log('onLoad', e)}
         onFocus={(e) => console.log('onFocus', e)}
         onBlur={(e) => console.log('onBlur', e)}
-        onVirtualKeyboardToggle={(sender, visible, keyboard) => console.log('onVirtualKeyboardToggle', { sender, visible, keyboard })}
         onMathFieldFocus={(sender) => console.log('onMathFieldFocus', sender)}
         onMathFieldBlur={(sender) => console.log('onMathFieldBlur', sender)}
         onContentWillChange={(sender) => console.log('onContentWillChange', sender)}
